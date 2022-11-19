@@ -10,7 +10,11 @@ builder.Services.AddDbContext<JobPortalDbContext>(options =>
     options.UseSqlServer(connectionString));
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
-builder.Services.AddDefaultIdentity<Employee>(options => options.SignIn.RequireConfirmedAccount = true)
+builder.Services.AddDefaultIdentity<Employee>(options =>
+{
+    options.SignIn.RequireConfirmedAccount = false;
+    options.Password.RequiredLength = 6;
+})
     .AddEntityFrameworkStores<JobPortalDbContext>();
 builder.Services.AddControllersWithViews();
 

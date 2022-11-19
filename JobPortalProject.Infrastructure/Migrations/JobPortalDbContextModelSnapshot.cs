@@ -63,7 +63,6 @@ namespace JobPortalProject.Infrastructure.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("CV")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ConcurrencyStamp")
