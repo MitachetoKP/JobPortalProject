@@ -21,6 +21,7 @@ builder.Services.AddDefaultIdentity<Employee>(options =>
 builder.Services.AddControllersWithViews();
 
 builder.Services.AddScoped<ICategoryService, CategoryService>();
+builder.Services.AddScoped<IOfferService, OfferService>();
 
 var app = builder.Build();
 

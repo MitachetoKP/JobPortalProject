@@ -24,6 +24,7 @@ namespace JobPortalProject.Core.Services
             var categories = await context.Categories
                 .Select(c => new CategoryViewModel()
                 {
+                    Id = c.Id,
                     Title = c.Title,
                     Offers = c.Offers.Count()
                 })

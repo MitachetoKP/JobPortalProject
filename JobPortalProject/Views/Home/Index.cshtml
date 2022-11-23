@@ -15,7 +15,7 @@
     {
         <div class="card col-4">
             <div class="card-body">
-                <p>@category.Title</p>
+                <a asp-route-categoryId="@category.Id" asp-controller="Offer" asp-action="ShowAllOffersInCategory">@category.Title</a>
                 <p>Total @category.Offers offers</p>
             </div>
         </div>
