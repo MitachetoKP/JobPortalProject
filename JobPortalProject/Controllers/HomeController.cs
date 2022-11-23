@@ -1,4 +1,5 @@
-﻿using JobPortalProject.Core.Models;
+﻿using JobPortalProject.Core.Contracts;
+using JobPortalProject.Core.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
@@ -7,15 +8,21 @@ namespace JobPortalProject.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private ICategoryService categoryService;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(
+            ILogger<HomeController> logger,
+            ICategoryService _categoryService)
         {
             _logger = logger;
+            categoryService = _categoryService;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return View();
+            var model = await categoryService.GetAllAsync();
+
+            return View(model);
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

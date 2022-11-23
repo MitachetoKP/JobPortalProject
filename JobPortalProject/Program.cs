@@ -1,3 +1,5 @@
+using JobPortalProject.Core.Contracts;
+using JobPortalProject.Core.Services;
 using JobPortalProject.Infrastructure.Data;
 using JobPortalProject.Infrastructure.Data.Entities;
 using Microsoft.AspNetCore.Identity;
@@ -17,6 +19,8 @@ builder.Services.AddDefaultIdentity<Employee>(options =>
 })
     .AddEntityFrameworkStores<JobPortalDbContext>();
 builder.Services.AddControllersWithViews();
+
+builder.Services.AddScoped<ICategoryService, CategoryService>();
 
 var app = builder.Build();
 
@@ -41,6 +45,9 @@ app.UseAuthorization();
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
+app.MapControllerRoute(
+    name: "areas",
+    pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
 app.MapRazorPages();
 
 app.Run();
