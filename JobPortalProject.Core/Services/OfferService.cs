@@ -19,15 +19,18 @@ namespace JobPortalProject.Core.Services
             context = _context;
         }
 
-        public async Task<IEnumerable<AllOfferViewModel>> GetAllAsync(int categoryId)
+        public async Task<IEnumerable<OfferViewModel>> GetAllAsync(int categoryId)
         {
             var offers = await context.Offers
                 .Where(o => o.CategoryId == categoryId)
-                .Select(o => new AllOfferViewModel()
+                .Select(o => new OfferViewModel()
                 {
+                    Id = o.Id,
                     Title = o.Title,
-                    CreatedOn = o.CreatedOn.ToLongDateString(),
-                    Salary = $"{o.Salary:f2}",
+                    Description = o.Description,
+                    CreatedOn = o.CreatedOn.ToShortDateString(),
+                    Category = o.Category.Title,
+                    Salary = $"{o.Salary:f0}",
                     Employer = o.Employer.Name,
                     Location = o.Location.Name,
                     Seniority = o.Seniority.Level
@@ -35,6 +38,26 @@ namespace JobPortalProject.Core.Services
                 .ToListAsync();
 
             return offers;
+        }
+
+        public async Task<OfferViewModel> GetOfferAsync(int offerId)
+        {
+            var offer = await context.Offers
+                .Select(o => new OfferViewModel()
+                {
+                    Id = o.Id,
+                    Title = o.Title,
+                    Description = o.Description,
+                    CreatedOn = o.CreatedOn.ToShortDateString(),
+                    Category = o.Category.Title,
+                    Salary = $"{o.Salary:f0}",
+                    Employer = o.Employer.Name,
+                    Location = o.Location.Name,
+                    Seniority = o.Seniority.Level
+                })
+                .FirstOrDefaultAsync(o => o.Id == offerId);
+
+            return offer;
         }
     }
 }

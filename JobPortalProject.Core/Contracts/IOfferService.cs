@@ -9,6 +9,8 @@ namespace JobPortalProject.Core.Contracts
 {
     public interface IOfferService
     {
-        Task<IEnumerable<AllOfferViewModel>> GetAllAsync(int categoryId);
+        Task<IEnumerable<OfferViewModel>> GetAllAsync(int categoryId);
+
+        Task<OfferViewModel> GetOfferAsync(int offerId);
     }
 }

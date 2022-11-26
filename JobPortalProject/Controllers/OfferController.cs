@@ -18,5 +18,17 @@ namespace JobPortalProject.Controllers
 
             return View(model);
         }
+
+        public async Task<IActionResult> ShowSingleOffer(int offerId)
+        {
+            var model = await offerService.GetOfferAsync(offerId);
+
+            return View(model);
+        }
+
+        //public IActionResult ApplyForOffer()
+        //{
+
+        //}
     }
 }

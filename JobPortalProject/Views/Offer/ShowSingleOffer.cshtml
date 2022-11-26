@@ -1,0 +1,26 @@
+﻿@model OfferViewModel
+
+@{
+    ViewData["Title"] = $"View {Model.Title} offer";
+}
+
+<h1>@ViewData["Title"]</h1>
+<hr />
+
+
+<div class="card col-7">
+    <div class="card-body">
+        <p><strong>Employer: </strong>@Model.Employer</p>
+        <p><strong>CreatedOn: </strong>@Model.CreatedOn</p>
+        <p><strong>Location: </strong>@Model.Location</p>
+        <p><strong>Category: </strong>@Model.Category</p>
+        <div class="card col-15">
+            <p><strong>Description:</strong></p>
+            <p>@Model.Description</p>
+        </div>
+        <br />
+        <p><strong>Salary: </strong>@Model.Salary lv.</p>
+        <p><strong>Seniority: </strong>@Model.Seniority</p>
+        <a asp-route-offerId="@Model.Id" asp-controller="Offer" asp-action="ApplyForOffer"><strong>Apply for offer</strong></a>
+    </div>
+</div>

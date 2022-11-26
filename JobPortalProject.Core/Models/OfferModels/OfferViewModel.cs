@@ -6,11 +6,17 @@ using System.Threading.Tasks;
 
 namespace JobPortalProject.Core.Models.OfferModels
 {
-    public class AllOfferViewModel
+    public class OfferViewModel
     {
+        public int Id { get; set; }
+
         public string Title { get; set; }
 
         public string CreatedOn { get; set; }
+
+        public string Description { get; set; }
+
+        public string Category { get; set; }
 
         public string Salary { get; set; }
 

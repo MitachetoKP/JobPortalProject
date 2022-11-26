@@ -42,6 +42,6 @@ namespace JobPortalProject.Infrastructure.Data.Entities
         public int SeniorityId { get; set; }
         public Seniority Seniority { get; set; }
 
-        public IEnumerable<Employee> AppliedEmployees { get; set; }
+        public IEnumerable<Employee> AppliedEmployees { get; set; } = new List<Employee>();
     }
 }
