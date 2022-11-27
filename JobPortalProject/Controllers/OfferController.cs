@@ -1,5 +1,7 @@
 ﻿using JobPortalProject.Core.Contracts;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Identity;
+using System.Security.Claims;
 
 namespace JobPortalProject.Controllers
 {
@@ -26,9 +28,19 @@ namespace JobPortalProject.Controllers
             return View(model);
         }
 
-        //public IActionResult ApplyForOffer()
-        //{
+        
+        public async Task<IActionResult> ApplyForOffer(int offerId)
+        {
+            var employeeId = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
 
-        //}
+            if (await offerService.IsApplied(offerId, employeeId))
+            {
+                return Ok("Already applied!");
+            }
+
+            await offerService.ApplyForOfferAsync(offerId, employeeId);
+
+            return RedirectToAction("Index", "Home");
+        }
     }
 }

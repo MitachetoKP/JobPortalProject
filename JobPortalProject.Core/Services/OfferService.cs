@@ -19,6 +19,19 @@ namespace JobPortalProject.Core.Services
             context = _context;
         }
 
+        public async Task ApplyForOfferAsync(int offerId, string employeeId)
+        {
+            var offer = await context.Offers
+                .FirstOrDefaultAsync(o => o.Id == offerId);
+
+            var employee = await context.Employees
+                .FirstOrDefaultAsync(e => e.Id == employeeId);
+
+            offer.AppliedEmployees.Add(employee);
+
+            await context.SaveChangesAsync();
+        }
+
         public async Task<IEnumerable<OfferViewModel>> GetAllAsync(int categoryId)
         {
             var offers = await context.Offers
@@ -58,6 +71,25 @@ namespace JobPortalProject.Core.Services
                 .FirstOrDefaultAsync(o => o.Id == offerId);
 
             return offer;
+        }
+
+        public async Task<bool> IsApplied(int offerId, string employeeId)
+        {
+            var offer = await context.Offers
+                .Include(o => o.AppliedEmployees)
+                .FirstOrDefaultAsync(o => o.Id == offerId);
+
+            var employee = await context.Employees
+                .FirstOrDefaultAsync(e => e.Id == employeeId);
+
+            if (offer.AppliedEmployees.Contains(employee))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
     }
 }

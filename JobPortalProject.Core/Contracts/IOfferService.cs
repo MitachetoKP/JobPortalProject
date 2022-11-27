@@ -12,5 +12,9 @@ namespace JobPortalProject.Core.Contracts
         Task<IEnumerable<OfferViewModel>> GetAllAsync(int categoryId);
 
         Task<OfferViewModel> GetOfferAsync(int offerId);
+
+        Task ApplyForOfferAsync(int offerId, string employeeId);
+
+        Task<bool> IsApplied(int offerId, string employeeId);
     }
 }
