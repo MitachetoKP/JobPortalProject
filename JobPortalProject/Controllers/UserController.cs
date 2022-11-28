@@ -1,9 +1,10 @@
-﻿using JobPortalProject.Core.Models.UserModels;
+﻿using JobPortalProject.Core.Contracts;
+using JobPortalProject.Core.Models.UserModels;
 using JobPortalProject.Infrastructure.Data.Entities;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-
+using System.Security.Claims;
 
 namespace JobPortalProject.Controllers
 {
@@ -14,12 +15,16 @@ namespace JobPortalProject.Controllers
 
         private readonly SignInManager<Employee> signInManager;
 
+        private readonly IEmployeeService employeeService;
+
         public UserController(
             UserManager<Employee> _userManager,
-            SignInManager<Employee> _signInManager)
+            SignInManager<Employee> _signInManager,
+            IEmployeeService _employeeService)
         {
             userManager = _userManager;
             signInManager = _signInManager;
+            employeeService = _employeeService;
         }
         
         [HttpGet]
@@ -111,6 +116,15 @@ namespace JobPortalProject.Controllers
             await signInManager.SignOutAsync();
 
             return RedirectToAction("Index", "Home");
+        }
+
+        public async Task<IActionResult> ShowUserInfo()
+        {
+            var employeeId = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
+
+            var model = await employeeService.GetPersonalInfo(employeeId);
+
+            return View(model);
         }
     }
 }

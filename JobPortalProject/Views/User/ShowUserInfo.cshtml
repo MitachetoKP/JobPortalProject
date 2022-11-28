@@ -1,0 +1,16 @@
+﻿@model EmployeeViewModel
+
+@{
+    ViewData["Title"] = "My Account";
+}
+
+<h1 class="text-center">@ViewData["Title"]</h1>
+<hr />
+
+<div>
+    <p><strong>UserName: </strong>@Model.UserName</p>
+    <p><strong>Email: </strong>@Model.Email</p>
+    <div>
+        <p><strong>CV: </strong>@Model.CV</p>
+    </div>
+</div>

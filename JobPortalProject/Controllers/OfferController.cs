@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Identity;
 using System.Security.Claims;
+using Microsoft.AspNetCore.Authorization;
 
 namespace JobPortalProject.Controllers
 {
@@ -28,7 +29,8 @@ namespace JobPortalProject.Controllers
             return View(model);
         }
 
-        
+
+        [Authorize]
         public async Task<IActionResult> ApplyForOffer(int offerId)
         {
             var employeeId = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
