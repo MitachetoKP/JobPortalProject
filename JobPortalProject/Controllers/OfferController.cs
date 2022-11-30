@@ -37,12 +37,12 @@ namespace JobPortalProject.Controllers
 
             if (await offerService.IsApplied(offerId, employeeId))
             {
-                return Ok("Already applied!");
+                return View("AlreadyApplied");
             }
 
             await offerService.ApplyForOfferAsync(offerId, employeeId);
 
-            return RedirectToAction("Index", "Home");
+            return View("ThankYouForApplying");
         }
     }
 }
