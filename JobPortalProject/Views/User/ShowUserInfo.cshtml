@@ -10,7 +10,11 @@
 <div>
     <p><strong>UserName: </strong>@Model.UserName</p>
     <p><strong>Email: </strong>@Model.Email</p>
-    <div>
-        <p><strong>CV: </strong>@Model.CV</p>
-    </div>
+    <p><strong>CV: </strong>@Model.CV</p>
+</div>
+<div>
+    <a asp-route-Id="@Model.Id" asp-controller="User" asp-action="EditInfo">Edit Profile</a>
+</div>
+<div>
+    <a asp-controller="User" asp-action="Logout">Logout</a>
 </div>

@@ -122,9 +122,29 @@ namespace JobPortalProject.Controllers
         {
             var employeeId = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
 
-            var model = await employeeService.GetPersonalInfo(employeeId);
+            var model = await employeeService.GetUser(employeeId);
 
             return View(model);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> EditInfo()
+        {
+            var employeeId = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
+
+            var model = await employeeService.GetUser(employeeId);
+
+            return View(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> EditInfo(EmployeeViewModel model)
+        {
+            var employeeId = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
+
+            await employeeService.EditInfoAsync(employeeId, model.UserName, model.Email, model.CV);
+
+            return RedirectToAction(nameof(ShowUserInfo));
         }
     }
 }

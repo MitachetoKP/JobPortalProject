@@ -1,6 +1,8 @@
 ﻿using JobPortalProject.Core.Contracts;
 using JobPortalProject.Core.Models.UserModels;
 using JobPortalProject.Infrastructure.Data;
+using JobPortalProject.Infrastructure.Data.Entities;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 namespace JobPortalProject.Core.Services
@@ -14,13 +16,28 @@ namespace JobPortalProject.Core.Services
             context = _context;
         }
 
-        public async Task<EmployeeViewModel> GetPersonalInfo(string employeeId)
+        public async Task EditInfoAsync(string employeeId, string newUserName, string newEmail, string newCV)
+        {
+            var employee = await context.Employees
+                .FirstOrDefaultAsync(e => e.Id == employeeId);
+
+            employee.UserName = newUserName;
+            employee.NormalizedUserName = newUserName.ToUpper();
+            employee.Email = newEmail;
+            employee.NormalizedEmail = newEmail.ToUpper();
+            employee.CV = newCV;
+
+            await context.SaveChangesAsync();
+        }
+
+        public async Task<EmployeeViewModel> GetUser(string employeeId)
         {
             var employee = await context.Employees
                 .FirstOrDefaultAsync(e => e.Id == employeeId);
 
             var model = new EmployeeViewModel()
             {
+                Id = employee.Id,
                 UserName = employee.UserName,
                 Email = employee.Email,
                 Password = employee.PasswordHash,

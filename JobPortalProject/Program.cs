@@ -18,6 +18,12 @@ builder.Services.AddDefaultIdentity<Employee>(options =>
     options.Password.RequiredLength = 6;
 })
     .AddEntityFrameworkStores<JobPortalDbContext>();
+
+builder.Services.ConfigureApplicationCookie(options =>
+{
+    options.LoginPath = "/User/Login";
+});
+
 builder.Services.AddControllersWithViews();
 
 builder.Services.AddScoped<ICategoryService, CategoryService>();
