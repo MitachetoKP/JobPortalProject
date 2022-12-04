@@ -1,4 +1,5 @@
-﻿using JobPortalProject.Core.Models.OfferModels;
+﻿using JobPortalProject.Core.Models.LocationModels;
+using JobPortalProject.Core.Models.OfferModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +10,7 @@ namespace JobPortalProject.Core.Contracts
 {
     public interface IOfferService
     {
-        Task<IEnumerable<OfferViewModel>> GetAllAsync(int categoryId);
+        Task<OfferListModel> GetAllAsync(int categoryId, int locationId);
 
         Task<OfferViewModel> GetOfferAsync(int offerId);
 

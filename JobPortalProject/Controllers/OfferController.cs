@@ -15,9 +15,9 @@ namespace JobPortalProject.Controllers
             this.offerService = _offerService;
         }
 
-        public async Task<IActionResult> ShowAllOffersInCategory(int categoryId)
+        public async Task<IActionResult> ShowAllOffersInCategory(int categoryId, int locationId)
         {
-            var model = await offerService.GetAllAsync(categoryId);
+            var model = await offerService.GetAllAsync(categoryId, locationId);
 
             return View(model);
         }

@@ -1,4 +1,6 @@
 ﻿using JobPortalProject.Core.Contracts;
+using JobPortalProject.Core.Models.CategoryModels;
+using JobPortalProject.Core.Models.LocationModels;
 using JobPortalProject.Core.Models.OfferModels;
 using JobPortalProject.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
@@ -32,10 +34,10 @@ namespace JobPortalProject.Core.Services
             await context.SaveChangesAsync();
         }
 
-        public async Task<IEnumerable<OfferViewModel>> GetAllAsync(int categoryId)
+        public async Task<OfferListModel> GetAllAsync(int categoryId, int locationId)
         {
             var offers = await context.Offers
-                .Where(o => o.CategoryId == categoryId)
+                .Where(o => o.CategoryId == categoryId && o.LocationId == locationId)
                 .Select(o => new OfferViewModel()
                 {
                     Id = o.Id,
@@ -50,7 +52,33 @@ namespace JobPortalProject.Core.Services
                 })
                 .ToListAsync();
 
-            return offers;
+            var category = await context.Categories
+                .Select(c => new CategoryViewModel()
+                {
+                    Id = c.Id,
+                    Title = c.Title
+                })
+                .FirstOrDefaultAsync(c => c.Id == categoryId);
+
+            var locations = await context.Locations
+                .Select(l => new locationViewModel()
+                {
+                    Id = l.Id,
+                    Name = l.Name,
+                    OffersCount = l.Offers
+                    .Where(o => o.CategoryId == categoryId)
+                    .Count()
+                })
+                .ToListAsync();
+
+            OfferListModel model = new OfferListModel()
+            {
+                Offers = offers,
+                Category = category,
+                Locations = locations,
+            };
+
+            return model;
         }
 
         public async Task<OfferViewModel> GetOfferAsync(int offerId)

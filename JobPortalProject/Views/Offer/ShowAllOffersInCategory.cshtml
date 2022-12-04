@@ -1,14 +1,25 @@
-﻿@model IEnumerable<OfferViewModel>
+﻿@model OfferListModel
 
 @{
-    ViewData["Title"] = $"All Offers in {Model?.FirstOrDefault()?.Category}";
+    ViewData["Title"] = $"All Offers in {@Model.Category.Title}";
 }
 
 <h1 class="text-center">@ViewData["Title"]</h1>
 <hr />
 
+<p>From where do you want to work?</p>
+@foreach (var location in Model.Locations)
+{
+    <a asp-route-categoryId="@Model.Category.Id" asp-route-locationId="@location.Id" asp-controller="Offer" asp-action="ShowAllOffersInCategory">@location.Name</a>
+    <label>@location.OffersCount offers</label>
+}
+
+<br />
+<br />
+<hr />
+
 <div class="text-center row">
-    @foreach (var offer in Model)
+    @foreach (var offer in Model.Offers)
     {
         <div class="card col-4">
             <div class="card-body">
