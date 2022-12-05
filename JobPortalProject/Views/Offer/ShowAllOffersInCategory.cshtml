@@ -23,10 +23,10 @@
     {
         <div class="card col-4">
             <div class="card-body">
-                <p>@offer.Employer</p>
-                <p>@offer.Title</p>
+                <p><strong>@offer.Title</strong></p>
+                <p>From: @offer.Employer</p>
                 <p>Created on: @offer.CreatedOn</p>
-                <p>Salary: @offer.Salary</p>
+                <p>Salary: @offer.Salary lv.</p>
                 <p>Location: @offer.Location</p>
                 <p>Seniority: @offer.Seniority</p>
                 <a asp-route-offerId="@offer.Id" asp-controller="Offer" asp-action="ShowSingleOffer">Show More</a>
