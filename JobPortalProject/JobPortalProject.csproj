@@ -9,9 +9,13 @@
 
   <ItemGroup>
     <Compile Remove="Areas\Administration\**" />
+    <Compile Remove="Areas\Admin\**" />
     <Content Remove="Areas\Administration\**" />
+    <Content Remove="Areas\Admin\**" />
     <EmbeddedResource Remove="Areas\Administration\**" />
+    <EmbeddedResource Remove="Areas\Admin\**" />
     <None Remove="Areas\Administration\**" />
+    <None Remove="Areas\Admin\**" />
   </ItemGroup>
 
   <ItemGroup>
@@ -28,8 +32,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Areas\Admin\Data\" />
-    <Folder Include="Areas\Admin\Models\" />
+    <Folder Include="Areas\Employer\Data\" />
+    <Folder Include="Areas\Employer\Models\" />
+    <Folder Include="Areas\Employer\Views\Shared - Copy\" />
+    <Folder Include="Areas\Employer\Views\Shared\" />
   </ItemGroup>
 
 </Project>
