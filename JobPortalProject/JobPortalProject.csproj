@@ -10,12 +10,16 @@
   <ItemGroup>
     <Compile Remove="Areas\Administration\**" />
     <Compile Remove="Areas\Admin\**" />
+    <Compile Remove="Areas\Employer\**" />
     <Content Remove="Areas\Administration\**" />
     <Content Remove="Areas\Admin\**" />
+    <Content Remove="Areas\Employer\**" />
     <EmbeddedResource Remove="Areas\Administration\**" />
     <EmbeddedResource Remove="Areas\Admin\**" />
+    <EmbeddedResource Remove="Areas\Employer\**" />
     <None Remove="Areas\Administration\**" />
     <None Remove="Areas\Admin\**" />
+    <None Remove="Areas\Employer\**" />
   </ItemGroup>
 
   <ItemGroup>
@@ -29,13 +33,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\JobPortalProject.Core\JobPortalProject.Core.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Areas\Employer\Data\" />
-    <Folder Include="Areas\Employer\Models\" />
-    <Folder Include="Areas\Employer\Views\Shared - Copy\" />
-    <Folder Include="Areas\Employer\Views\Shared\" />
   </ItemGroup>
 
 </Project>

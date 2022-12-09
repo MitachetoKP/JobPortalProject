@@ -1,7 +1,9 @@
 ﻿@using Microsoft.AspNetCore.Identity
 @using JobPortalProject.Infrastructure.Data.Entities
+@using JobPortalProject.Core.Contracts
 @inject SignInManager<Employee> SignInManager
 @inject UserManager<Employee> UserManager
+@inject IEmployerService service
 
 <ul class="navbar-nav">
 @if (SignInManager.IsSignedIn(User))
@@ -9,6 +11,12 @@
     @*<li class="nav-item">
         <a  class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Hello @User.Identity?.Name!</a>
     </li>*@
+    @if (!service.ExistsById(UserManager.GetUserId(User)))
+        {
+            <li>
+                <a class="nav-link text-dark" asp-route-id="@UserManager.GetUserId(User)" asp-controller="Employer" asp-action="Become">Become Employer</a>
+            </li>
+        }
     <li class="nav-item">
         <a class="nav-link text-dark" asp-route-id="@UserManager.GetUserId(User)" asp-controller="User" asp-action="ShowUserInfo">My Account</a>
     </li>

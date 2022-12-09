@@ -46,7 +46,7 @@ namespace JobPortalProject.Core.Services
                     CreatedOn = o.CreatedOn.ToShortDateString(),
                     Category = o.Category.Title,
                     Salary = $"{o.Salary:f0}",
-                    Employer = o.Employer.Name,
+                    Employer = o.Employer.User.UserName,
                     Location = o.Location.Name,
                     Seniority = o.Seniority.Level
                 })
@@ -92,7 +92,7 @@ namespace JobPortalProject.Core.Services
                     CreatedOn = o.CreatedOn.ToShortDateString(),
                     Category = o.Category.Title,
                     Salary = $"{o.Salary:f0}",
-                    Employer = o.Employer.Name,
+                    Employer = o.Employer.User.UserName,
                     Location = o.Location.Name,
                     Seniority = o.Seniority.Level
                 })

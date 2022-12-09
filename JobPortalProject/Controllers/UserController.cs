@@ -1,4 +1,5 @@
 ﻿using JobPortalProject.Core.Contracts;
+using JobPortalProject.Core.Infrastructure;
 using JobPortalProject.Core.Models.UserModels;
 using JobPortalProject.Infrastructure.Data.Entities;
 using Microsoft.AspNetCore.Authorization;
@@ -120,7 +121,7 @@ namespace JobPortalProject.Controllers
 
         public async Task<IActionResult> ShowUserInfo()
         {
-            var employeeId = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
+            var employeeId = User.Id();
 
             var model = await employeeService.GetUser(employeeId);
 
@@ -130,7 +131,7 @@ namespace JobPortalProject.Controllers
         [HttpGet]
         public async Task<IActionResult> EditInfo()
         {
-            var employeeId = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
+            var employeeId = User.Id();
 
             var model = await employeeService.GetUser(employeeId);
 
@@ -140,7 +141,7 @@ namespace JobPortalProject.Controllers
         [HttpPost]
         public async Task<IActionResult> EditInfo(EmployeeViewModel model)
         {
-            var employeeId = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
+            var employeeId = User.Id();
 
             await employeeService.EditInfoAsync(employeeId, model.UserName, model.Email, model.CV);
 

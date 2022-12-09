@@ -8,7 +8,7 @@ namespace JobPortalProject.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-        private ICategoryService categoryService;
+        private readonly ICategoryService categoryService;
 
         public HomeController(
             ILogger<HomeController> logger,
@@ -20,6 +20,11 @@ namespace JobPortalProject.Controllers
 
         public async Task<IActionResult> Index()
         {
+            //if (User.IsInRole("Admin"))
+            //{
+            //    return RedirectToAction("Index", "Home", new { area = "Admin" });
+            //}
+
             var model = await categoryService.GetAllAsync();
 
             return View(model);

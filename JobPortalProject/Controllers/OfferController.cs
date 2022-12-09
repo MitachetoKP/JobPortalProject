@@ -3,12 +3,13 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Identity;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Authorization;
+using JobPortalProject.Core.Infrastructure;
 
 namespace JobPortalProject.Controllers
 {
     public class OfferController : Controller
     {
-        private IOfferService offerService;
+        private readonly IOfferService offerService;
 
         public OfferController(IOfferService _offerService)
         {
@@ -33,7 +34,7 @@ namespace JobPortalProject.Controllers
         [Authorize]
         public async Task<IActionResult> ApplyForOffer(int offerId)
         {
-            var employeeId = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
+            var employeeId = User.Id();
 
             if (await offerService.IsApplied(offerId, employeeId))
             {
