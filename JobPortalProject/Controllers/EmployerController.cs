@@ -1,25 +1,38 @@
 ﻿using JobPortalProject.Core.Contracts;
 using JobPortalProject.Core.Infrastructure;
 using JobPortalProject.Core.Models.EmployerModels;
+using JobPortalProject.Core.Models.OfferModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace JobPortalProject.Controllers
 {
+    [Authorize]
     public class EmployerController : Controller
     {
         private readonly IEmployerService employerService;
+        private readonly ILocationService locationService;
+        private readonly ISeniorityService seniorityService;
+        private readonly ICategoryService categoryService;
 
-        public EmployerController(IEmployerService _employerService)
+        public EmployerController(
+            IEmployerService _employerService, 
+            ILocationService _locationService, 
+            ISeniorityService _seniorityService, 
+            ICategoryService _categoryService)
         {
-            this.employerService = _employerService;
+            employerService = _employerService;
+            locationService = _locationService;
+            seniorityService = _seniorityService;
+            categoryService = _categoryService;
         }
 
         public async Task<IActionResult> Become(BecomeEmployerFormModel model)
         {
             var userId = User.Id();
 
-            if (employerService.ExistsById(userId))
+            if (await employerService.ExistsById(userId))
             {
                 return BadRequest();
             }
@@ -35,6 +48,63 @@ namespace JobPortalProject.Controllers
             }
 
             await employerService.CreateEmployerAsync(userId, model.PhoneNumber);
+
+            return RedirectToAction("Index", "Home");
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> AddOffer()
+        {
+            if (await employerService.ExistsById(User.Id()) == false)
+            {
+                return RedirectToAction(nameof(Become));
+            }
+
+            var model = new OfferFormModel()
+            {
+                Categories = await categoryService.GetAllAsync(),
+                Locations = await locationService.GetAllAsync(),
+                Seniorities = await seniorityService.GetAllAsync(),
+            };
+
+            return View(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> AddOffer(OfferFormModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+
+            if (await employerService.ExistsById(User.Id()) == false)
+            {
+                return RedirectToAction(nameof(Become));
+            }
+
+            if (await categoryService.CategoryExists(model.CategoryId))
+            {
+                ModelState.AddModelError(nameof(model.CategoryId), "Category does not exist.");
+            }
+
+            if (await categoryService.CategoryExists(model.LocationId))
+            {
+                ModelState.AddModelError(nameof(model.LocationId), "Location does not exist.");
+            }
+
+            if (await categoryService.CategoryExists(model.SeniorityId))
+            {
+                ModelState.AddModelError(nameof(model.SeniorityId), "Seniority does not exist.");
+            }
+
+            int emplyerId = await employerService.GetEmployerId(User.Id());
+
+            await employerService.CreateOfferAsync(model.Title, model.Description,
+                model.Salary, model.LocationId, model.SeniorityId, 
+                model.CategoryId, emplyerId);
+
+            //return RedirectToAction(nameof(MyOffers));
 
             return RedirectToAction("Index", "Home");
         }

@@ -30,6 +30,8 @@ builder.Services.AddScoped<ICategoryService, CategoryService>();
 builder.Services.AddScoped<IOfferService, OfferService>();
 builder.Services.AddScoped<IEmployeeService, EmployeeService>();
 builder.Services.AddScoped<IEmployerService, EmployerService>();
+builder.Services.AddScoped<ILocationService, LocationService>();
+builder.Services.AddScoped<ISeniorityService, SeniorityService>();
 
 var app = builder.Build();
 

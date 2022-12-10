@@ -61,7 +61,7 @@ namespace JobPortalProject.Core.Services
                 .FirstOrDefaultAsync(c => c.Id == categoryId);
 
             var locations = await context.Locations
-                .Select(l => new locationViewModel()
+                .Select(l => new LocationViewModel()
                 {
                     Id = l.Id,
                     Name = l.Name,

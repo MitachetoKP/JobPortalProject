@@ -14,7 +14,7 @@ namespace JobPortalProject.Core.Models.OfferModels
 
         public string Location { get; init; }
 
-        public IEnumerable<locationViewModel> Locations { get; set; } = new List<locationViewModel>();
+        public IEnumerable<LocationViewModel> Locations { get; set; } = new List<LocationViewModel>();
 
         public IEnumerable<OfferViewModel> Offers { get; set; } = new List<OfferViewModel>();
     }

@@ -28,7 +28,7 @@
                         </li>
                         @if (User.Identity.IsAuthenticated)
                         {
-                            @if (service.ExistsById(User.Id()))
+                            @if (await service.ExistsById(User.Id()))
                             {
                                 <li class="nav-item">
                                     <a class="nav-link text-dark" asp-area="" asp-controller="Employer" asp-action="AddOffer">Add Offer</a>

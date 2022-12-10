@@ -8,10 +8,21 @@ namespace JobPortalProject.Core.Contracts
 {
     public interface IEmployerService
     {
-        bool ExistsById(string userId);
+        Task<bool> ExistsById(string userId);
 
         bool EmployeeWithPhoneNumberExists(string phoneNumber);
 
         Task CreateEmployerAsync(string employeeId, string phoneNumber);
+
+        Task CreateOfferAsync(
+            string title,
+            string description,
+            decimal salary,
+            int locationId,
+            int seniorityId,
+            int categoryId,
+            int employerId);
+
+        Task<int> GetEmployerId(string userId);
     }
 }

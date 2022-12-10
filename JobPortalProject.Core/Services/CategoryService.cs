@@ -19,6 +19,12 @@ namespace JobPortalProject.Core.Services
             context = _context;
         }
 
+        public async Task<bool> CategoryExists(int categoryId)
+        {
+            return await context.Categories
+                .AnyAsync(c => c.Id == categoryId);
+        }
+
         public async Task<IEnumerable<CategoryViewModel>> GetAllAsync()
         {
             var categories = await context.Categories

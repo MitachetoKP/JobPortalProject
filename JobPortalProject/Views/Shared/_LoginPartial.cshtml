@@ -11,7 +11,7 @@
     @*<li class="nav-item">
         <a  class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Hello @User.Identity?.Name!</a>
     </li>*@
-    @if (!service.ExistsById(UserManager.GetUserId(User)))
+    @if (await service.ExistsById(UserManager.GetUserId(User)) == false)
         {
             <li>
                 <a class="nav-link text-dark" asp-route-id="@UserManager.GetUserId(User)" asp-controller="Employer" asp-action="Become">Become Employer</a>
