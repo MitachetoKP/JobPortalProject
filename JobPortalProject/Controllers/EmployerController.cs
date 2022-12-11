@@ -2,6 +2,7 @@
 using JobPortalProject.Core.Infrastructure;
 using JobPortalProject.Core.Models.EmployerModels;
 using JobPortalProject.Core.Models.OfferModels;
+using JobPortalProject.Core.Models.UserModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -216,11 +217,12 @@ namespace JobPortalProject.Controllers
             return RedirectToAction(nameof(MyOffers));
         }
 
-        public async Task<IActionResult> Details(int offerId)
+        [HttpGet]
+        public async Task<IActionResult> AppliedEmployees(int offerId)
         {
             if (await offerService.Exists(offerId) == false)
             {
-                return View();
+                return BadRequest();
             }
 
             if (await offerService.HasEmployerWithIdAsync(offerId, User.Id()) == false)
@@ -228,7 +230,15 @@ namespace JobPortalProject.Controllers
                 return Unauthorized();
             }
 
-            return RedirectToAction("ShowSingleOffer", "Offer", new { offerId = offerId });
+            var model = await offerService.GetAppliedAsync(offerId);
+
+            return View(model);
         }
+
+        //[HttpPost]
+        //public async Task<IActionResult> AppliedEmployees(int offerId, IEnumerable<EmployeeViewModel> model)
+        //{ 
+
+        //}
     }
 }

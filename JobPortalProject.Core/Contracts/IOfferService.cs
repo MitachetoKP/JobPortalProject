@@ -1,10 +1,5 @@
-﻿using JobPortalProject.Core.Models.LocationModels;
-using JobPortalProject.Core.Models.OfferModels;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using JobPortalProject.Core.Models.OfferModels;
+using JobPortalProject.Core.Models.UserModels;
 
 namespace JobPortalProject.Core.Contracts
 {
@@ -21,5 +16,7 @@ namespace JobPortalProject.Core.Contracts
         Task<bool> Exists(int offerId);
 
         Task<bool> HasEmployerWithIdAsync(int offerId, string employeeId);
+
+        Task<EmployeeListModel> GetAppliedAsync(int offerId);
     }
 }

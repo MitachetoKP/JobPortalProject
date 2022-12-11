@@ -30,12 +30,12 @@ namespace JobPortalProject.Core.Services
             await context.SaveChangesAsync();
         }
 
-        public async Task<EmployeeViewModel> GetUser(string employeeId)
+        public async Task<UserViewModel> GetUser(string employeeId)
         {
             var employee = await context.Employees
                 .FirstOrDefaultAsync(e => e.Id == employeeId);
 
-            var model = new EmployeeViewModel()
+            var model = new UserViewModel()
             {
                 Id = employee.Id,
                 UserName = employee.UserName,

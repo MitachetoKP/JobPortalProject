@@ -2,13 +2,9 @@
 using JobPortalProject.Core.Models.CategoryModels;
 using JobPortalProject.Core.Models.LocationModels;
 using JobPortalProject.Core.Models.OfferModels;
+using JobPortalProject.Core.Models.UserModels;
 using JobPortalProject.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace JobPortalProject.Core.Services
 {
@@ -139,6 +135,30 @@ namespace JobPortalProject.Core.Services
             }
 
             return true;
+        }
+
+        public async Task<EmployeeListModel> GetAppliedAsync(int offerId)
+        {
+            var offer = await context.Offers
+                .Include(o => o.AppliedEmployees)
+                .FirstAsync(o => o.Id == offerId);
+
+            var employees = offer.AppliedEmployees
+                .Select(e => new EmployeeViewModel()
+                {
+                    UserName = e.UserName,
+                    Email = e.Email,
+                    CV = e.CV
+                })
+                .ToList();
+
+            var listModel = new EmployeeListModel()
+            {
+                OfferTitle = offer.Title,
+                Employees = employees
+            };
+
+            return listModel;
         }
     }
 }

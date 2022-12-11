@@ -9,7 +9,7 @@ namespace JobPortalProject.Core.Contracts
 {
     public interface IEmployeeService
     {
-        Task<EmployeeViewModel> GetUser(string employeeId);
+        Task<UserViewModel> GetUser(string employeeId);
 
         Task EditInfoAsync(string employeeId, string newUserName, string newEmail, string newCV);
     }

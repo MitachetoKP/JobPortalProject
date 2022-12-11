@@ -1,0 +1,29 @@
+﻿@model EmployeeListModel
+
+@{
+    ViewData["Title"] = $"Applied users for {Model.OfferTitle}";
+}
+
+<h1 class="text-center">@ViewData["Title"]</h1>
+<hr />
+
+<div class="text-center row">
+    @if (Model.Employees.Count() < 1)
+    {
+        <h2>No employees have applied for this offer</h2>
+    }
+
+    @foreach (var employee in Model.Employees)
+    {
+        <div class="card col-4">
+            <div class="card-body">
+                <label><strong>UserName:</strong></label>
+                <p>@employee.UserName</p>
+                <label><strong>Email:</strong></label>
+                <p>@employee.Email</p>
+                <label><strong>CV:</strong></label>
+                <p>@employee.CV</p>
+            </div>
+        </div>
+    }
+</div>

@@ -8,6 +8,11 @@
 <hr />
 
 <div class="text-center row">
+    @if (Model.Count() < 1)
+    {
+        <h2>You have not added any offers yet</h2>
+    }
+
     @foreach (var offer in Model)
     {
         <div class="card col-4">
@@ -18,7 +23,7 @@
                 <p>Location: @offer.Location</p>
                 <p>Seniority: @offer.Seniority</p>
                 <br />
-                <a asp-route-offerId="@offer.Id" asp-controller="Employer" asp-action="Details" class="btn btn-success">Details</a>
+                <a asp-route-offerId="@offer.Id" asp-controller="Offer" asp-action="Details" class="btn btn-success">Details</a>
                 <a asp-route-offerId="@offer.Id" asp-controller="Employer" asp-action="AppliedEmployees" class="btn btn-primary">Applied employees</a>
                 <a asp-route-offerId="@offer.Id" asp-controller="Employer" asp-action="EditOffer" class="btn btn-warning">Edit</a>
                 <a asp-route-offerId="@offer.Id" asp-controller="Employer" asp-action="RemoveOffer" class="btn btn-danger">Remove</a>

@@ -139,7 +139,7 @@ namespace JobPortalProject.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> EditInfo(EmployeeViewModel model)
+        public async Task<IActionResult> EditInfo(UserViewModel model)
         {
             var employeeId = User.Id();
 

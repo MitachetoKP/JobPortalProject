@@ -8,14 +8,10 @@ namespace JobPortalProject.Core.Models.UserModels
 {
     public class EmployeeViewModel
     {
-        public string Id { get; set; }
+        public string UserName { get; init; }
 
-        public string UserName { get; set; }
+        public string Email { get; init; }
 
-        public string Password { get; set; }
-
-        public string Email { get; set; }
-
-        public string? CV { get; set; }
+        public string CV { get; init; }
     }
 }

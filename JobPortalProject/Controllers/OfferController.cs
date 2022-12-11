@@ -52,5 +52,20 @@ namespace JobPortalProject.Controllers
 
             return View("ThankYouForApplying");
         }
+
+        public async Task<IActionResult> Details(int offerId)
+        {
+            if (await offerService.Exists(offerId) == false)
+            {
+                return View();
+            }
+
+            if (await offerService.HasEmployerWithIdAsync(offerId, User.Id()) == false)
+            {
+                return Unauthorized();
+            }
+
+            return RedirectToAction("ShowSingleOffer", "Offer", new { offerId = offerId });
+        }
     }
 }
