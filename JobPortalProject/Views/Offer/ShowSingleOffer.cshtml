@@ -1,4 +1,8 @@
-﻿@model OfferViewModel
+﻿@using JobPortalProject.Core.Infrastructure;
+@using JobPortalProject.Core.Contracts;
+@inject IEmployerService service
+
+@model OfferViewModel
 
 @{
     ViewData["Title"] = $"View {Model.Title} offer";
@@ -11,7 +15,7 @@
 <div class="card col-7">
     <div class="card-body">
         <p><strong>Employer: </strong>@Model.Employer</p>
-        <p><strong>CreatedOn: </strong>@Model.CreatedOn</p>
+        <p><strong>Created On: </strong>@Model.CreatedOn</p>
         <p><strong>Location: </strong>@Model.Location</p>
         <p><strong>Category: </strong>@Model.Category</p>
         <div class="card col-15">
@@ -21,6 +25,9 @@
         <br />
         <p><strong>Salary: </strong>@Model.Salary lv.</p>
         <p><strong>Seniority: </strong>@Model.Seniority</p>
-        <a asp-route-offerId="@Model.Id" asp-controller="Offer" asp-action="ApplyForOffer"><strong>Apply for offer</strong></a>
+        @if (await service.ExistsById(User.Id()) == false)
+        {
+            <a asp-route-offerId="@Model.Id" asp-controller="Offer" asp-action="ApplyForOffer" class="btn btn-primary"><strong>Apply for offer</strong></a>
+        }
     </div>
 </div>

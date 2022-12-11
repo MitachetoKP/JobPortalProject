@@ -17,5 +17,9 @@ namespace JobPortalProject.Core.Contracts
         Task ApplyForOfferAsync(int offerId, string employeeId);
 
         Task<bool> IsApplied(int offerId, string employeeId);
+
+        Task<bool> Exists(int offerId);
+
+        Task<bool> HasEmployerWithIdAsync(int offerId, string employeeId);
     }
 }

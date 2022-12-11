@@ -10,10 +10,12 @@ namespace JobPortalProject.Controllers
     public class OfferController : Controller
     {
         private readonly IOfferService offerService;
+        private readonly IEmployerService employerService;
 
-        public OfferController(IOfferService _offerService)
+        public OfferController(IOfferService _offerService, IEmployerService _employerService)
         {
             this.offerService = _offerService;
+            this.employerService = _employerService;
         }
 
         public async Task<IActionResult> ShowAllOffersInCategory(int categoryId, int locationId)
@@ -35,6 +37,11 @@ namespace JobPortalProject.Controllers
         public async Task<IActionResult> ApplyForOffer(int offerId)
         {
             var employeeId = User.Id();
+
+            if (await employerService.ExistsById(employeeId))
+            {
+                return BadRequest("Employer cannot apply for offer.");
+            }
 
             if (await offerService.IsApplied(offerId, employeeId))
             {

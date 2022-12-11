@@ -8,5 +8,6 @@ namespace JobPortalProject.Core.Contracts
 
         Task<bool> SeniorityExists(int seniorityId);
 
+        Task<int> GetSeniorityIdAsync(int offerId);
     }
 }

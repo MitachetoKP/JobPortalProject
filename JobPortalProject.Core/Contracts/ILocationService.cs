@@ -7,5 +7,7 @@ namespace JobPortalProject.Core.Contracts
         Task<IEnumerable<LocationViewModel>> GetAllAsync();
 
         Task<bool> LocationExists(int locationId);
+
+        Task<int> GetLocationIdAsync(int offerId);
     }
 }

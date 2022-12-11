@@ -27,6 +27,14 @@ namespace JobPortalProject.Core.Services
             return seniorities;
         }
 
+        public async Task<int> GetSeniorityIdAsync(int offerId)
+        {
+            var offer = await context.Offers
+                .FirstAsync(o => o.Id == offerId);
+
+            return offer.SeniorityId;
+        }
+
         public async Task<bool> SeniorityExists(int seniorityId)
         {
             return await context.Seniorities

@@ -42,7 +42,6 @@ namespace JobPortalProject.Core.Services
                 {
                     Id = o.Id,
                     Title = o.Title,
-                    Description = o.Description,
                     CreatedOn = o.CreatedOn.ToShortDateString(),
                     Category = o.Category.Title,
                     Salary = $"{o.Salary:f0}",
@@ -118,6 +117,28 @@ namespace JobPortalProject.Core.Services
             {
                 return false;
             }
+        }
+
+        public async Task<bool> Exists(int offerId)
+        {
+            return await context.Offers
+                .AnyAsync(o => o.Id == offerId);
+        }
+
+        public async Task<bool> HasEmployerWithIdAsync(int offerId, string employeeId)
+        {
+            var offer = await context.Offers
+                .FirstOrDefaultAsync(o => o.Id == offerId);
+
+            var employer = await context.Employers
+                .FirstOrDefaultAsync(e => e.Id == offer.EmployerId);
+
+            if (offer == null || employer.UserId != employeeId)
+            {
+                return false;
+            }
+
+            return true;
         }
     }
 }

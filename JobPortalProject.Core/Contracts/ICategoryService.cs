@@ -7,5 +7,7 @@ namespace JobPortalProject.Core.Contracts
         Task<IEnumerable<CategoryViewModel>> GetAllAsync();
 
         Task<bool> CategoryExists(int categoryId);
+
+        Task<int> GetCategoryIdAsync(int offerId);
     }
 }

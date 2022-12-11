@@ -38,5 +38,13 @@ namespace JobPortalProject.Core.Services
 
             return categories;
         }
+
+        public async Task<int> GetCategoryIdAsync(int offerId)
+        {
+            var offer = await context.Offers
+                .FirstAsync(o => o.Id == offerId);
+
+            return offer.CategoryId;
+        }
     }
 }

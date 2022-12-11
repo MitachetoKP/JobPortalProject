@@ -1,4 +1,5 @@
-﻿using System;
+﻿using JobPortalProject.Core.Models.OfferModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -24,5 +25,16 @@ namespace JobPortalProject.Core.Contracts
             int employerId);
 
         Task<int> GetEmployerId(string userId);
+
+        Task<IEnumerable<OfferViewModel>> GetMyOffersAsync(int employerId);
+
+        Task EditfferAsync(
+            int offerId,
+            string title,
+            string description,
+            decimal salary,
+            int locationId,
+            int seniorityId,
+            int categoryId);
     }
 }

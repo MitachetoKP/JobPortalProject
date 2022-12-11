@@ -27,6 +27,14 @@ namespace JobPortalProject.Core.Services
             return locations;
         }
 
+        public async Task<int> GetLocationIdAsync(int offerId)
+        {
+            var offer = await context.Offers
+                .FirstAsync(o => o.Id == offerId);
+
+            return offer.LocationId;
+        }
+
         public async Task<bool> LocationExists(int locationId)
         {
             return await context.Locations

@@ -1,4 +1,5 @@
 ﻿using JobPortalProject.Core.Contracts;
+using JobPortalProject.Core.Models.OfferModels;
 using JobPortalProject.Infrastructure.Data;
 using JobPortalProject.Infrastructure.Data.Entities;
 using Microsoft.EntityFrameworkCore;
@@ -44,6 +45,21 @@ namespace JobPortalProject.Core.Services
             await context.SaveChangesAsync();
         }
 
+        public async Task EditfferAsync(int offerId, string title, string description, decimal salary, int locationId, int seniorityId, int categoryId)
+        {
+            var offer = await context.Offers
+                .FirstAsync(o => o.Id == offerId);
+
+            offer.Title = title;
+            offer.Description = description;
+            offer.Salary = salary;
+            offer.LocationId = locationId;
+            offer.SeniorityId = seniorityId;
+            offer.CategoryId = categoryId;
+
+            await context.SaveChangesAsync();
+        }
+
         public bool EmployeeWithPhoneNumberExists(string phoneNumber)
         {
             return context.Employers
@@ -62,6 +78,27 @@ namespace JobPortalProject.Core.Services
                 .FirstOrDefaultAsync(e => e.UserId == userId);
 
             return employer.Id;
+        }
+
+        public async Task<IEnumerable<OfferViewModel>> GetMyOffersAsync(int employerId)
+        {
+            var offers = await context.Offers
+                .Where(o => o.EmployerId == employerId)
+                .Select(o => new OfferViewModel()
+                {
+                    Id = o.Id,
+                    Title = o.Title,
+                    Description = o.Description,
+                    CreatedOn = o.CreatedOn.ToShortDateString(),
+                    Category = o.Category.Title,
+                    Salary = $"{o.Salary:f0}",
+                    Employer = o.Employer.User.UserName,
+                    Location = o.Location.Name,
+                    Seniority = o.Seniority.Level
+                })
+                .ToListAsync();
+
+            return offers;
         }
     }
 }
