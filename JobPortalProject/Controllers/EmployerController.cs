@@ -198,5 +198,37 @@ namespace JobPortalProject.Controllers
 
             return RedirectToAction("ShowSingleOffer", "Offer", new { offerId = offerId });
         }
+
+        public async Task<IActionResult> RemoveOffer(int offerId)
+        {
+            if (await offerService.Exists(offerId) == false)
+            {
+                return BadRequest();
+            }
+
+            if (await offerService.HasEmployerWithIdAsync(offerId, User.Id()) == false)
+            {
+                return Unauthorized();
+            }
+
+            await employerService.DeleteAsync(offerId);
+
+            return RedirectToAction(nameof(MyOffers));
+        }
+
+        public async Task<IActionResult> Details(int offerId)
+        {
+            if (await offerService.Exists(offerId) == false)
+            {
+                return View();
+            }
+
+            if (await offerService.HasEmployerWithIdAsync(offerId, User.Id()) == false)
+            {
+                return Unauthorized();
+            }
+
+            return RedirectToAction("ShowSingleOffer", "Offer", new { offerId = offerId });
+        }
     }
 }

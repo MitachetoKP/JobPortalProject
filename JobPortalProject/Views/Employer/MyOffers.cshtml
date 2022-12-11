@@ -17,14 +17,11 @@
                 <p>Salary: @offer.Salary lv.</p>
                 <p>Location: @offer.Location</p>
                 <p>Seniority: @offer.Seniority</p>
-                <div class="card col-15">
-                    <p><strong>Description:</strong></p>
-                    <p>@offer.Description</p>
-                </div>
                 <br />
+                <a asp-route-offerId="@offer.Id" asp-controller="Employer" asp-action="Details" class="btn btn-success">Details</a>
                 <a asp-route-offerId="@offer.Id" asp-controller="Employer" asp-action="AppliedEmployees" class="btn btn-primary">Applied employees</a>
                 <a asp-route-offerId="@offer.Id" asp-controller="Employer" asp-action="EditOffer" class="btn btn-warning">Edit</a>
-                <a asp-route-offerId="@offer.Id" asp-controller="Employer" asp-action="DeleteOffer" class="btn btn-danger">Delete</a>
+                <a asp-route-offerId="@offer.Id" asp-controller="Employer" asp-action="RemoveOffer" class="btn btn-danger">Remove</a>
             </div>
         </div>
     }

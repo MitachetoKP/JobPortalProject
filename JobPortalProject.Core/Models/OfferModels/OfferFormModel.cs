@@ -8,7 +8,7 @@ namespace JobPortalProject.Core.Models.OfferModels
     public class OfferFormModel
     {
         [Required]
-        [MinLength(5), MaxLength(25)]
+        [MinLength(5), MaxLength(50)]
         public string Title { get; init; }
 
         [Required]

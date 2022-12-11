@@ -36,5 +36,7 @@ namespace JobPortalProject.Core.Contracts
             int locationId,
             int seniorityId,
             int categoryId);
+
+        Task DeleteAsync(int offerId);
     }
 }

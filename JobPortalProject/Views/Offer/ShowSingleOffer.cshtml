@@ -25,9 +25,13 @@
         <br />
         <p><strong>Salary: </strong>@Model.Salary lv.</p>
         <p><strong>Seniority: </strong>@Model.Seniority</p>
-        @if (await service.ExistsById(User.Id()) == false)
+        @if (User.Identity.IsAuthenticated)
         {
-            <a asp-route-offerId="@Model.Id" asp-controller="Offer" asp-action="ApplyForOffer" class="btn btn-primary"><strong>Apply for offer</strong></a>
+            @if (await service.ExistsById(User.Id()) == false)
+            {
+                <a asp-route-offerId="@Model.Id" asp-controller="Offer" asp-action="ApplyForOffer" class="btn btn-primary"><strong>Apply for offer</strong></a>
+            } 
         }
+        
     </div>
 </div>

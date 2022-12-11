@@ -45,6 +45,15 @@ namespace JobPortalProject.Core.Services
             await context.SaveChangesAsync();
         }
 
+        public async Task DeleteAsync(int offerId)
+        {
+            var offer = await context.Offers
+                .FirstAsync(o => o.Id == offerId);
+
+            context.Remove(offer);
+            await context.SaveChangesAsync();
+        }
+
         public async Task EditfferAsync(int offerId, string title, string description, decimal salary, int locationId, int seniorityId, int categoryId)
         {
             var offer = await context.Offers
