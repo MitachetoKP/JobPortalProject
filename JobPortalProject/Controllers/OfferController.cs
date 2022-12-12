@@ -60,7 +60,7 @@ namespace JobPortalProject.Controllers
                 return View();
             }
 
-            if (await offerService.HasEmployerWithIdAsync(offerId, User.Id()) == false)
+            if (await offerService.HasEmployerWithIdAsync(offerId, User.Id()) == false && User.IsAdmin() == false)
             {
                 return Unauthorized();
             }
