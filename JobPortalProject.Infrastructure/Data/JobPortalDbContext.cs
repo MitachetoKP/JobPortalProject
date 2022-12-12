@@ -1,4 +1,5 @@
-﻿using JobPortalProject.Infrastructure.Data.Entities;
+﻿using JobPortalProject.Infrastructure.Data.Configuration;
+using JobPortalProject.Infrastructure.Data.Entities;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
@@ -9,6 +10,18 @@ namespace JobPortalProject.Infrastructure.Data
         public JobPortalDbContext(DbContextOptions<JobPortalDbContext> options)
             : base(options)
         {
+        }
+
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+            builder.ApplyConfiguration(new UserConfiguration());
+            builder.ApplyConfiguration(new LocationConfiguration());
+            builder.ApplyConfiguration(new SeniorityConfiguration());
+            builder.ApplyConfiguration(new CategoryConfiguration());
+            builder.ApplyConfiguration(new OfferConfiguration());
+            builder.ApplyConfiguration(new EmployerConfiguration());
+
+            base.OnModelCreating(builder);
         }
 
         public DbSet<Employee> Employees { get; set; }
