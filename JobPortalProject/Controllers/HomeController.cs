@@ -1,4 +1,5 @@
 ﻿using JobPortalProject.Core.Contracts;
+using JobPortalProject.Core.Infrastructure;
 using JobPortalProject.Core.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
@@ -20,10 +21,10 @@ namespace JobPortalProject.Controllers
 
         public async Task<IActionResult> Index()
         {
-            //if (User.IsInRole("Admin"))
-            //{
-            //    return RedirectToAction("Index", "Home", new { area = "Admin" });
-            //}
+            if (User.IsAdmin())
+            {
+                return RedirectToAction("Index", "Home", new { area = "Admin" });
+            }
 
             var model = await categoryService.GetAllAsync();
 

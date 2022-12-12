@@ -19,11 +19,7 @@
 <hr />
 
 <div class="text-center row">
-    @if (Model.Offers.Count() < 1)
-    {
-        <h2>There are no offers in this category</h2>
-    }
-
+    
     @foreach (var offer in Model.Offers)
     {
         <div class="card col-4">

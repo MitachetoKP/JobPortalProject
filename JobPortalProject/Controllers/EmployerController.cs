@@ -113,6 +113,11 @@ namespace JobPortalProject.Controllers
 
         public async Task<IActionResult> MyOffers()
         {
+            if (User.IsAdmin())
+            {
+                return RedirectToAction("MyOffers", "Offer", new { area = "Admin" });
+            }
+
             if (await employerService.ExistsById(User.Id()) == false)
             {
                 return RedirectToAction(nameof(Become));
@@ -133,7 +138,7 @@ namespace JobPortalProject.Controllers
                 return BadRequest();
             }
 
-            if (await offerService.HasEmployerWithIdAsync(offerId, User.Id()) == false)
+            if (await offerService.HasEmployerWithIdAsync(offerId, User.Id()) == false && User.IsAdmin() == false)
             {
                 return Unauthorized();
             }
@@ -173,7 +178,7 @@ namespace JobPortalProject.Controllers
                 return View();
             }
 
-            if (await offerService.HasEmployerWithIdAsync(offerId, User.Id()) == false)
+            if (await offerService.HasEmployerWithIdAsync(offerId, User.Id()) == false && User.IsAdmin() == false)
             {
                 return Unauthorized();
             }
@@ -207,12 +212,17 @@ namespace JobPortalProject.Controllers
                 return BadRequest();
             }
 
-            if (await offerService.HasEmployerWithIdAsync(offerId, User.Id()) == false)
+            if (await offerService.HasEmployerWithIdAsync(offerId, User.Id()) == false && User.IsAdmin() == false)
             {
                 return Unauthorized();
             }
 
             await employerService.DeleteAsync(offerId);
+
+            if (User.IsAdmin())
+            {
+                return RedirectToAction("All", "Offer", new { area = "Admin" });
+            }
 
             return RedirectToAction(nameof(MyOffers));
         }
@@ -225,7 +235,7 @@ namespace JobPortalProject.Controllers
                 return BadRequest();
             }
 
-            if (await offerService.HasEmployerWithIdAsync(offerId, User.Id()) == false)
+            if (await offerService.HasEmployerWithIdAsync(offerId, User.Id()) == false && User.IsAdmin() == false)
             {
                 return Unauthorized();
             }
@@ -234,11 +244,5 @@ namespace JobPortalProject.Controllers
 
             return View(model);
         }
-
-        //[HttpPost]
-        //public async Task<IActionResult> AppliedEmployees(int offerId, IEnumerable<EmployeeViewModel> model)
-        //{ 
-
-        //}
     }
 }

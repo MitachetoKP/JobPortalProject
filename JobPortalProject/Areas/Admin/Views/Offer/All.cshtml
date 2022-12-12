@@ -1,14 +1,13 @@
 ﻿@model IEnumerable<CategoryViewModel>
 
 @{
-    ViewData["Title"] = "Job Portal";
+    ViewData["Title"] = "All offers by category";
 }
 
 <h1 class="text-center">@ViewData["Title"]</h1>
-<h2 class="text-center">Here you can look for IT job offers</h2>
+<h2 class="text-center">You can edit, read and delete all offers</h2>
 <hr />
 
-<h4 class="text-center">Look at all offers sorted by category</h4>
 <br />
 
 <div class="text-center row">
@@ -16,7 +15,7 @@
     {
         <div class="card col-4">
             <div class="card-body">
-                <a asp-route-categoryId="@category.Id" asp-controller="Offer" asp-action="ShowAllOffersInCategory">@category.Title</a>
+                <a asp-route-categoryId="@category.Id" asp-controller="Offer" asp-action="OffersInCategory">@category.Title</a>
                 <p>Total @category.Offers offers</p>
             </div>
         </div>

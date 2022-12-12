@@ -40,7 +40,7 @@ namespace JobPortalProject.Controllers
 
             if (await employerService.ExistsById(employeeId))
             {
-                return BadRequest("Employer cannot apply for offer.");
+                return BadRequest();
             }
 
             if (await offerService.IsApplied(offerId, employeeId))

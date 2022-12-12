@@ -12,5 +12,7 @@ namespace JobPortalProject.Core.Contracts
         Task<UserViewModel> GetUser(string employeeId);
 
         Task EditInfoAsync(string employeeId, string newUserName, string newEmail, string newCV);
+
+        Task<IEnumerable<UserModel>> GetAllAsync();
     }
 }

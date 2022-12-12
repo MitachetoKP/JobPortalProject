@@ -1,4 +1,5 @@
 using JobPortalProject.Core.Contracts;
+using JobPortalProject.Core.Infrastructure;
 using JobPortalProject.Core.Services;
 using JobPortalProject.Infrastructure.Data;
 using JobPortalProject.Infrastructure.Data.Entities;
@@ -17,6 +18,7 @@ builder.Services.AddDefaultIdentity<Employee>(options =>
     options.SignIn.RequireConfirmedAccount = false;
     options.Password.RequiredLength = 6;
 })
+    .AddRoles<IdentityRole>()
     .AddEntityFrameworkStores<JobPortalDbContext>();
 
 builder.Services.ConfigureApplicationCookie(options =>
@@ -53,23 +55,22 @@ app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();
 
-//app.MapControllerRoute(
-//    name: "default",
-//    pattern: "{controller=Home}/{action=Index}/{id?}");
+app.SeedAdmin(); 
+
 app.UseEndpoints(endpoints =>
 {
     endpoints.MapControllerRoute(
-      name: "default",
-      pattern: "{controller=Home}/{action=Index}/{id?}"
-      );
+        name: "Areas",
+        pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}"
+        /*defaults: new { Area = "Admin", Controller = "Home", Action = "Index" }*/);
 
     endpoints.MapControllerRoute(
-      name: "areas",
-      pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}"
-    );
+        name: "default",
+        pattern: "{controller=Home}/{action=Index}/{id?}",
+        defaults: new { Controller = "Home", Action = "Index" });
 
+    endpoints.MapDefaultControllerRoute();
     endpoints.MapRazorPages();
 });
-//app.MapRazorPages();
 
 app.Run();

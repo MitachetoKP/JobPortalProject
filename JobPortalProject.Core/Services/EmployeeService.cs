@@ -30,6 +30,20 @@ namespace JobPortalProject.Core.Services
             await context.SaveChangesAsync();
         }
 
+        public async Task<IEnumerable<UserModel>> GetAllAsync()
+        {
+            var users = await context.Employees
+                .Select(e => new UserModel()
+                {
+                    UserName = e.UserName,
+                    Email = e.Email,
+                    PhoneNumber = e.PhoneNumber
+                })
+                .ToListAsync();
+
+            return users;
+        }
+
         public async Task<UserViewModel> GetUser(string employeeId)
         {
             var employee = await context.Employees

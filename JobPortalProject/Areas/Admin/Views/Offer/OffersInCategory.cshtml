@@ -1,0 +1,39 @@
+﻿@model OfferListModel
+
+@{
+    ViewData["Title"] = $"All Offers in {@Model.Category.Title}";
+}
+
+<h1 class="text-center">@ViewData["Title"]</h1>
+<hr />
+
+<label><b>Choose a city:</b></label>
+@foreach (var location in Model.Locations)
+{
+    <a asp-route-categoryId="@Model.Category.Id" asp-route-locationId="@location.Id" asp-controller="Offer" asp-action="OffersInCategory">@location.Name</a>
+    <label>@location.OffersCount offers</label>
+}
+<br />
+<br />
+<hr />
+
+<div class="text-center row">
+    
+    @foreach (var offer in Model.Offers)
+    {
+        <div class="card col-4">
+            <div class="card-body">
+                <p><strong>@offer.Title</strong></p>
+                <p>Created on: @offer.CreatedOn</p>
+                <p>Salary: @offer.Salary lv.</p>
+                <p>Location: @offer.Location</p>
+                <p>Seniority: @offer.Seniority</p>
+                <br />
+                <a asp-route-offerId="@offer.Id" asp-area="" asp-controller="Offer" asp-action="Details" class="btn btn-success">Details</a>
+                <a asp-route-offerId="@offer.Id" asp-area="" asp-controller="Employer" asp-action="AppliedEmployees" class="btn btn-primary">Applied employees</a>
+                <a asp-route-offerId="@offer.Id" asp-area="" asp-controller="Employer" asp-action="EditOffer" class="btn btn-warning">Edit</a>
+                <a asp-route-offerId="@offer.Id" asp-area="" asp-controller="Employer" asp-action="RemoveOffer" class="btn btn-danger">Remove</a>
+            </div>
+        </div>
+    }
+</div>

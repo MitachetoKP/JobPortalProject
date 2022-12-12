@@ -1,0 +1,33 @@
+﻿@model IEnumerable<OfferViewModel>
+
+@{
+    ViewData["Title"] = $"My offers";
+}
+
+<h1 class="text-center">@ViewData["Title"]</h1>
+<hr />
+
+<div class="text-center row">
+    @if (Model.Count() < 1)
+    {
+        <h2>You have not added any offers yet</h2>
+    }
+
+    @foreach (var offer in Model)
+    {
+        <div class="card col-4">
+            <div class="card-body">
+                <p><strong>@offer.Title</strong></p>
+                <p>Created on: @offer.CreatedOn</p>
+                <p>Salary: @offer.Salary lv.</p>
+                <p>Location: @offer.Location</p>
+                <p>Seniority: @offer.Seniority</p>
+                <br />
+                <a asp-route-offerId="@offer.Id" asp-area="" asp-controller="Offer" asp-action="Details" class="btn btn-success">Details</a>
+                <a asp-route-offerId="@offer.Id" asp-area="" asp-controller="Employer" asp-action="AppliedEmployees" class="btn btn-primary">Applied employees</a>
+                <a asp-route-offerId="@offer.Id" asp-area="" asp-controller="Employer" asp-action="EditOffer" class="btn btn-warning">Edit</a>
+                <a asp-route-offerId="@offer.Id" asp-area="" asp-controller="Employer" asp-action="RemoveOffer" class="btn btn-danger">Remove</a>
+            </div>
+        </div>
+    }
+</div>

@@ -23,6 +23,11 @@ namespace JobPortalProject.Core.Services
                 PhoneNumber = phoneNumber
             };
 
+            var employee = await context.Employees
+                .FirstAsync(e => e.Id == employeeId);
+
+            employee.PhoneNumber = phoneNumber;
+
             await context.Employers.AddAsync(employer);
             await context.SaveChangesAsync();
         }

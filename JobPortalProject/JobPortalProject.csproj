@@ -7,7 +7,7 @@
     <UserSecretsId>aspnet-JobPortalProject-2A106667-317A-4EF8-BC05-566537E70C70</UserSecretsId>
   </PropertyGroup>
 
-  <ItemGroup>
+  <!--<ItemGroup>
     <Compile Remove="Areas\Administration\**" />
     <Compile Remove="Areas\Admin\**" />
     <Compile Remove="Areas\Employer\**" />
@@ -20,7 +20,23 @@
     <None Remove="Areas\Administration\**" />
     <None Remove="Areas\Admin\**" />
     <None Remove="Areas\Employer\**" />
-  </ItemGroup>
+  </ItemGroup>-->
+
+  <!--<ItemGroup>
+    <Compile Include="Areas\Admin\Controllers\BaseController.cs" />
+    <Compile Include="Areas\Admin\Controllers\HomeController.cs" />
+  </ItemGroup>-->
+
+  <!--<ItemGroup>
+    <Content Include="Areas\Admin\Views\_ViewImports.cshtml">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="Areas\Admin\Views\_ViewStart.cshtml">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+  </ItemGroup>-->
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="6.0.11" />
@@ -33,6 +49,10 @@
 
   <ItemGroup>
     <ProjectReference Include="..\JobPortalProject.Core\JobPortalProject.Core.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="Areas\Admin\Views\Home\Index.cshtml" />
   </ItemGroup>
 
 </Project>
