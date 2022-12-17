@@ -126,10 +126,20 @@ namespace JobPortalProject.Core.Services
             var offer = await context.Offers
                 .FirstOrDefaultAsync(o => o.Id == offerId);
 
+            if (offer == null)
+            {
+                return false;
+            }
+
             var employer = await context.Employers
                 .FirstOrDefaultAsync(e => e.Id == offer.EmployerId);
 
-            if (offer == null || employer.UserId != employeeId)
+            if (employer == null)
+            {
+                return false;
+            }
+
+            if (employer.UserId != employeeId)
             {
                 return false;
             }

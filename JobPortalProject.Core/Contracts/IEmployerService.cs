@@ -21,7 +21,7 @@ namespace JobPortalProject.Core.Contracts
         /// </summary>
         /// <param name="phoneNumber"></param>
         /// <returns>True of false if the employer exists</returns>
-        bool EmployeeWithPhoneNumberExists(string phoneNumber);
+        Task<bool> EmployeeWithPhoneNumberExists(string phoneNumber);
 
         /// <summary>
         /// Creates an employer
@@ -70,7 +70,7 @@ namespace JobPortalProject.Core.Contracts
         /// <param name="seniorityId"></param>
         /// <param name="categoryId"></param>
         /// <returns></returns>
-        Task EditfferAsync(int offerId, string title, string description,
+        Task EditOfferAsync(int offerId, string title, string description,
             decimal salary, int locationId, int seniorityId, int categoryId);
 
         /// <summary>

@@ -14,12 +14,15 @@ namespace JobPortalProject.Infrastructure.Data
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
-            builder.ApplyConfiguration(new UserConfiguration());
-            builder.ApplyConfiguration(new LocationConfiguration());
-            builder.ApplyConfiguration(new SeniorityConfiguration());
-            builder.ApplyConfiguration(new CategoryConfiguration());
-            builder.ApplyConfiguration(new OfferConfiguration());
-            builder.ApplyConfiguration(new EmployerConfiguration());
+            //Commented because tests do not work.
+            //Uncomment to seed Db.
+
+            //builder.ApplyConfiguration(new UserConfiguration());
+            //builder.ApplyConfiguration(new LocationConfiguration());
+            //builder.ApplyConfiguration(new SeniorityConfiguration());
+            //builder.ApplyConfiguration(new CategoryConfiguration());
+            //builder.ApplyConfiguration(new OfferConfiguration());
+            //builder.ApplyConfiguration(new EmployerConfiguration());
 
             base.OnModelCreating(builder);
         }

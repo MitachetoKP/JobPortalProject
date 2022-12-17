@@ -41,7 +41,7 @@ namespace JobPortalProject.Controllers
                 return BadRequest();
             }
 
-            if (employerService.EmployeeWithPhoneNumberExists(model.PhoneNumber))
+            if (await employerService.EmployeeWithPhoneNumberExists(model.PhoneNumber))
             {
                 ModelState.AddModelError(nameof(model.PhoneNumber), "Phone number already exists.");
             }
@@ -198,7 +198,7 @@ namespace JobPortalProject.Controllers
                 ModelState.AddModelError(nameof(model.SeniorityId), "Seniority does not exist.");
             }
 
-            await employerService.EditfferAsync(offerId, model.Title, 
+            await employerService.EditOfferAsync(offerId, model.Title, 
                 model.Description, model.Salary, model.LocationId, 
                 model.SeniorityId, model.CategoryId);
 

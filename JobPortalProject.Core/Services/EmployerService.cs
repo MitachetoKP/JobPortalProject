@@ -59,7 +59,7 @@ namespace JobPortalProject.Core.Services
             await context.SaveChangesAsync();
         }
 
-        public async Task EditfferAsync(int offerId, string title, string description, decimal salary, int locationId, int seniorityId, int categoryId)
+        public async Task EditOfferAsync(int offerId, string title, string description, decimal salary, int locationId, int seniorityId, int categoryId)
         {
             var offer = await context.Offers
                 .FirstAsync(o => o.Id == offerId);
@@ -74,10 +74,10 @@ namespace JobPortalProject.Core.Services
             await context.SaveChangesAsync();
         }
 
-        public bool EmployeeWithPhoneNumberExists(string phoneNumber)
+        public async Task<bool> EmployeeWithPhoneNumberExists(string phoneNumber)
         {
-            return context.Employers
-                .Any(e => e.PhoneNumber == phoneNumber);
+            return await context.Employers
+                .AnyAsync(e => e.PhoneNumber == phoneNumber);
         }
 
         public async Task<bool> ExistsById(string userId)
