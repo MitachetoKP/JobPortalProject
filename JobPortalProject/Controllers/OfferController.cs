@@ -20,13 +20,28 @@ namespace JobPortalProject.Controllers
 
         public async Task<IActionResult> ShowAllOffersInCategory(int categoryId, int locationId)
         {
-            var model = await offerService.GetAllAsync(categoryId, locationId);
+            if (categoryId == 0)
+            {
+                return BadRequest();
+            }
 
+            var model = await offerService.GetAllAsync(categoryId, locationId);
+                
             return View(model);
         }
 
         public async Task<IActionResult> ShowSingleOffer(int offerId)
         {
+            if (await offerService.Exists(offerId) == false)
+            {
+                return BadRequest();
+            }
+
+            if (await offerService.HasEmployerWithIdAsync(offerId, User.Id()) == false && User.IsAdmin() == false)
+            {
+                return Unauthorized();
+            }
+
             var model = await offerService.GetOfferAsync(offerId);
 
             return View(model);
@@ -37,6 +52,11 @@ namespace JobPortalProject.Controllers
         public async Task<IActionResult> ApplyForOffer(int offerId)
         {
             var employeeId = User.Id();
+
+            if (await offerService.Exists(offerId) == false)
+            {
+                return BadRequest();
+            }
 
             if (await employerService.ExistsById(employeeId))
             {
@@ -53,19 +73,5 @@ namespace JobPortalProject.Controllers
             return View("ThankYouForApplying");
         }
 
-        public async Task<IActionResult> Details(int offerId)
-        {
-            if (await offerService.Exists(offerId) == false)
-            {
-                return View();
-            }
-
-            if (await offerService.HasEmployerWithIdAsync(offerId, User.Id()) == false && User.IsAdmin() == false)
-            {
-                return Unauthorized();
-            }
-
-            return RedirectToAction("ShowSingleOffer", "Offer", new { offerId = offerId });
-        }
     }
 }

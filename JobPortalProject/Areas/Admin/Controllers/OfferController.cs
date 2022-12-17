@@ -35,6 +35,11 @@ namespace JobPortalProject.Areas.Admin.Controllers
 
         public async Task<IActionResult> OffersInCategory(int categoryId, int locationId)
         {
+            if (categoryId == 0)
+            {
+                return BadRequest();
+            }
+
             var model = await offerService.GetAllAsync(categoryId, locationId);
 
             return View(model);
