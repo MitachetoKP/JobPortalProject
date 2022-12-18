@@ -11,7 +11,7 @@
     @if (await service.ExistsById(UserManager.GetUserId(User)) == false)
         {
             <li>
-                <a class="nav-link text-dark" asp-route-id="@UserManager.GetUserId(User)" asp-controller="Employer" asp-action="Become">Become Employer</a>
+                <a class="nav-link text-dark"  asp-controller="Employer" asp-action="Become">Become Employer</a>
             </li>
         }
     <li class="nav-item">

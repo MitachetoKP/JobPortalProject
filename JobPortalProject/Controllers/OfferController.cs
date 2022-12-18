@@ -37,11 +37,6 @@ namespace JobPortalProject.Controllers
                 return BadRequest();
             }
 
-            if (await offerService.HasEmployerWithIdAsync(offerId, User.Id()) == false && User.IsAdmin() == false)
-            {
-                return Unauthorized();
-            }
-
             var model = await offerService.GetOfferAsync(offerId);
 
             return View(model);
